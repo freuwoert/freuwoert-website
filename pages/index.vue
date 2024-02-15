@@ -8,7 +8,7 @@
             <div class="grid hero-grid">
                 <h1 class="super">Hi, ich bin Alyx!</h1>
                 <StaggeredText class="title" is="h1" text="Ich entwickle und gestalte Websites und Anwendungen" stagger forward :delay="400" />
-                <IodButton class="animated-button" :is="NuxtLink" to="/#projekte" label="Ein Einblick in meine Arbeit" size="large" shape="pill" data-cf data-cf-text="Mein Projekte" />
+                <IodButton class="animated-button" :is="NuxtLink" to="/#projekte" label="Ein Einblick in meine Arbeit" size="large" shape="pill" data-cf data-cf-text="Meine Projekte" />
             </div>
         </div>
     </Section>
