@@ -36,7 +36,7 @@
         
         <div class="limiter extra-padding">
             <div class="grid super-title-text-grid">
-                <h2 class="super">Mein Projekte</h2>
+                <h2 class="super">Meine Projekte</h2>
                 <StaggeredText class="title" is="h2" text="Ein Einblick in meine Arbeit" stagger forward :delay="300"/>
                 <StaggeredText class="text" is="p" text="Eine Auswahl meiner Projekte — Webseiten, Webanwendungen und relevante, interessante und spannende Projekte, die ich in den letzten Jahren entwickelt habe." stagger forward :delay="300"/>
             </div>
