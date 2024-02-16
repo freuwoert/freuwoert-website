@@ -9,6 +9,9 @@
                 <h1 class="super">Hi, ich bin Alyx!</h1>
                 <StaggeredText class="title" is="h1" text="Ich entwickle und gestalte Websites und Anwendungen" stagger forward :delay="400" />
                 <IodButton class="animated-button" :is="NuxtLink" to="/#projekte" label="Ein Einblick in meine Arbeit" size="large" shape="pill" data-cf data-cf-text="Meine Projekte" />
+                <div class="hero-canvas-wrapper">
+                    <HeroCanvas class="hero-canvas" />
+                </div>
             </div>
         </div>
     </Section>
@@ -134,6 +137,18 @@
             grid-template-rows: auto auto auto
             grid-template-areas: "super canvas" "title canvas" "button canvas"
             gap: 0 4rem
+
+        .hero-canvas-wrapper
+            grid-area: canvas
+            width: 100%
+            height: 100%
+            display: flex
+            align-items: center
+            justify-content: center
+
+            .hero-canvas
+                width: 100%
+                aspect-ratio: 1
 
         .super
             grid-area: super
