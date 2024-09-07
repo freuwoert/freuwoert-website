@@ -448,14 +448,14 @@ function setFocus()
   flex-direction: column
   border: 1px solid var(--color-border)
   border-radius: var(--radius-m)
-  background: var(--color-background-soft)
+  background: var(--color-background)
   color: var(--color-text-soft)
   padding-block: .5rem
   user-select: none
-  max-height: 100vh
+  max-height: min(90vh, 20rem)
   overflow-y: auto
   font-size: .9em
-  box-shadow: var(--shadow-elevation-medium)
+  box-shadow: var(--shadow-m)
 
   .select-dropdown-item
     position: relative
@@ -493,7 +493,7 @@ function setFocus()
       left: 0
       width: 0
       border-radius: 0 1rem 1rem 0
-      background-color: var(--color-primary)
+      background-color: var(--color-text)
       pointer-events: none
       transition: width 100ms ease-in-out
 

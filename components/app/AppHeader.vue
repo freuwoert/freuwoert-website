@@ -1,18 +1,16 @@
 <template>
     <header :class="{'scrolled': scrolled}">
-        <div class="limiter extra-padding">
+        <HeLimiter>
             <div class="button-wrapper">
-                <IodButton :is="NuxtLink" to="/" shape="pill" variant="text" size="small" aria-label="Zur Startseite">
+                <IodButton :is="NuxtLink" to="/" corner="pill" variant="text" size="s" aria-label="Zur Startseite">
                     <BrandText color="currentColor"/>
                 </IodButton>
             </div>
-            <Spacer />
+            <HeSpacer />
             <div class="button-wrapper group">
-                <!-- <IodIconButton type="button" icon="volume_up" shape="pill" variant="text" size="small"/> -->
-                <!-- <IodIconButton type="button" icon="dark_mode" shape="pill" variant="text" size="small"/> -->
-                <IodIconButton type="button" icon="menu" aria-label="Menü öffnen" shape="pill" variant="text" size="small"/>
+                <IodIconButton type="button" icon="menu" aria-label="Menü öffnen" corner="pill" variant="text" size="s"/>
             </div>
-        </div>
+        </HeLimiter>
     </header>
 </template>
 
@@ -57,12 +55,12 @@
                 .iod-button
                     --local-color-background: var(--color-text)
 
-        .limiter
+        .he-limiter
             position: relative
             z-index: 1
-            height: 100%
-            display: flex
-            align-items: center
+            height: 100% !important
+            display: flex !important
+            align-items: center !important
             gap: 2rem
 
         .button-wrapper
@@ -79,7 +77,7 @@
                 padding-inline: .75rem
             
             .brand-item
-                height: .75rem
+                height: 1rem
 
             .iod-button
                 --local-color-background: var(--color-text-soft)
@@ -90,6 +88,6 @@
     
 
     @media (max-width: 400px)
-        .limiter .button-wrapper
+        .he-limiter .button-wrapper
             margin-inline: 0rem
 </style>

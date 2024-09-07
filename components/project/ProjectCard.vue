@@ -1,30 +1,42 @@
 <template>
-    <NuxtLink to="/" class="project-card" data-cf :data-cf-color="project.color" data-cf-text="Projekt öffnen" :style="`--local-color-hard: ${project.color}; --local-color-medium: ${project.color}30; --local-color-soft: ${project.color}10;`">
+    <NuxtLink :to="href" class="project-card" data-cf :data-cf-color="color" data-cf-text="Projekt öffnen" :style="`--local-color-hard: ${color}; --local-color-medium: ${color}30; --local-color-soft: ${color}10;`">
         <div class="image-wrapper">
-            <img :src="project.thumbnail" :alt="project.title" />
+            <img :src="thumbnail" :alt="title" />
         </div>
         <div class="text-group flex-1">
-            <h3>{{ project.title }}</h3>
+            <h3>{{ title }}</h3>
             <div class="tags">
-                <div class="tag" v-for="tag in project.tags" :key="tag">{{ tag }}</div>
+                <div class="tag" v-for="tag in tags" :key="tag">{{ tag }}</div>
             </div>
         </div>
     </NuxtLink>
 </template>
 
 <script lang="ts" setup>
-    type Project = {
-        title: string
-        client: string
-        color: string
-        tags: string[]
-        thumbnail: string
-    }
-
     defineProps({
-        project: {
-            type: Object as PropType<Project>,
-            required: true,
+        title: {
+            type: String,
+            defautl: null,
+        },
+        client: {
+            type: String,
+            default: null,
+        },
+        color: {
+            type: String,
+            default: null,
+        },
+        href: {
+            type: String,
+            default: null,
+        },
+        thumbnail: {
+            type: String,
+            default: null,
+        },
+        tags: {
+            type: Array as PropType<string[]>,
+            default: () => [],
         },
     })
 </script>
@@ -36,7 +48,6 @@
         background-color: var(--color-background)
         border-radius: 1.5rem
         transition: all 200ms ease-in-out
-        border: 1px solid var(--local-color-medium)
         overflow: hidden
         text-decoration: none
 
@@ -57,6 +68,7 @@
             margin: .5rem
             margin-bottom: 0
             overflow: hidden
+            border: 2px solid var(--local-color-soft)
 
             img
                 width: 100%

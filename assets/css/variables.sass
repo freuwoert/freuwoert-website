@@ -1,0 +1,70 @@
+@import './fonts/poppins.css'
+@import './fonts/inter.css'
+@import './fonts/jetbrains-mono.css'
+@import './fonts/material-symbols-rounded-filled.css'
+@import './fonts/brand-symbols.css'
+
+
+
+// General
+html
+    --font-heading: 'Poppins', sans-serif
+    --font-text: 'Inter', sans-serif
+    --font-mono: 'JetBrains Mono', monospace
+    --font-icon: 'Material Symbols Rounded', monospace
+    --font-brand: 'Brand Symbols', monospace
+
+    --size-heading-xl: clamp(2rem, 6vw, 4rem)
+    --size-heading-l: clamp(1.75rem, 5vw, 3rem)
+    --size-heading-m: clamp(1.5rem, 4vw, 2.5rem)
+    --size-heading-s: clamp(1.25rem, 3vw, 2rem)
+    --size-heading-xs: clamp(1.25rem, 2.5vw, 1.75rem)
+    
+    --size-text: clamp(1rem, 2.5vw, 1.125rem)
+    --size-small: clamp(.75rem, 2vw, 1rem)
+
+
+
+// Themes
+html:not([data-theme]),
+html[data-theme="light"]
+    --color-primary: #650db4
+    --color-on-primary: #ffffff
+    --color-secondary: #ff4757
+    --color-on-secondary: #ffffff
+    --color-tertiary: #a55eea
+    --color-on-tertiary: #ffffff
+
+    --color-text: #1e293b
+    --color-text-soft: #475569
+    --color-text-soft-disabled: #94a3b8
+
+    --color-background: #ffffff
+    --color-background-soft: #eaeef3
+    --color-background-disabled: #f1f5f9
+
+    --color-border: #e3e5e6
+    --color-border-focused: #B2B6B8
+    --color-border-disabled: #DFE1E2
+
+
+
+html[data-theme="dark"]
+    --color-primary: #3737FA
+    --color-on-primary: #ffffff
+    --color-secondary: #5f76f7
+    --color-on-secondary: #ffffff
+    --color-tertiary: #f34f0f
+    --color-on-tertiary: #ffffff
+
+    --color-text: #dddddd
+    --color-text-soft: #bcbfc4
+    --color-text-soft-disabled: #5f6161
+
+    --color-background: #343638
+    --color-background-soft: #202123
+    --color-background-disabled: #2a2b2d
+
+    --color-border: #515255
+    --color-border-focused: #818185
+    --color-border-disabled: #2f3033

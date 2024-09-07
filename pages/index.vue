@@ -1,19 +1,19 @@
 <template>
     <Section id="start">
         <template #effects>
-            <EffectGridLines />
+            <EffectGridLines class="masked-start"/>
         </template>
 
-        <div class="limiter extra-padding">
+        <HeLimiter>
             <div class="grid hero-grid">
                 <h1 class="super">Hi, ich bin Alyx!</h1>
-                <StaggeredText class="title" is="h1" text="Ich entwickle und gestalte Websites und Anwendungen" stagger forward :delay="400" />
-                <IodButton class="animated-button" :is="NuxtLink" to="/#projekte" label="Ein Einblick in meine Arbeit" size="large" shape="pill" data-cf data-cf-text="Meine Projekte" />
+                <StaggeredText class="title" is="h1" text="Ich entwickle und gestalte Software" stagger forward :delay="400" />
+                <IodButton class="animated-button" :is="NuxtLink" to="/#projekte" label="Ein Einblick in meine Arbeit" size="l" corner="pill" data-cf data-cf-text="Meine Projekte" />
                 <div class="hero-canvas-wrapper">
                     <HeroCanvas class="hero-canvas" />
                 </div>
             </div>
-        </div>
+        </HeLimiter>
     </Section>
 
 
@@ -22,13 +22,13 @@
             <EffectGridLines />
         </template>
 
-        <div class="limiter extra-padding">
+        <HeLimiter>
             <div class="grid super-title-text-grid">
                 <h2 class="super">Über mich</h2>
                 <StaggeredText class="title" is="h2" text="Aus Leidenschaft und Liebe zur Entwicklung" stagger forward :delay="300"/>
-                <StaggeredText class="text" is="p" text="Ich bin Alyx Freuwört — Web Developer und UI Designer aus Braunschweig. Seit 2017 entwickle ich mit Technologien wie Vue, Laravel, TypeScript, SQL und Sass full stack Web Anwendungen und benutzerorientierte Webseiten. Doch schon weit vor meiner beruflichen Laufbahn habe ich mich für das Kreieren und Craften interessiert." stagger forward :delay="300"/>
+                <StaggeredText class="text" is="p" text="Ich bin Alyx Freuwört — Software Developer und UI Designer aus Braunschweig. Seit 2017 entwickle und gestalte ich mit Technologien wie Laravel, SQL, Vue, TypeScript und Sass full stack Applikationen und benutzerorientierte Webseiten." stagger forward :delay="300"/>
             </div>
-        </div>
+        </HeLimiter>
     </Section>
     
 
@@ -37,16 +37,47 @@
             <EffectGridLines />
         </template>
         
-        <div class="limiter extra-padding">
+        <HeLimiter>
             <div class="grid super-title-text-grid">
                 <h2 class="super">Meine Projekte</h2>
                 <StaggeredText class="title" is="h2" text="Ein Einblick in meine Arbeit" stagger forward :delay="300"/>
-                <StaggeredText class="text" is="p" text="Eine Auswahl meiner Projekte — Webseiten, Webanwendungen und relevante, interessante und spannende Projekte, die ich in den letzten Jahren entwickelt habe." stagger forward :delay="300"/>
+                <StaggeredText class="text" is="p" text="Eine Auswahl meiner Projekte — Anwendungen, Webseiten und relevante, interessante und spannende Projekte, die ich in den letzten Jahren entwickelt habe." stagger forward :delay="300"/>
             </div>
             <div class="grid project-grid">
-                <ProjectCard v-for="project in projects" :key="project.title" :project="project" />
+                <ProjectCard
+                    title="Helium – Intuitives cloud based Content Management"
+                    client="Helium"
+                    color="#3737fa"
+                    href="/projects/helium"
+                    thumbnail="/images/helium_thumbnail.webp"
+                    :tags="['Development', 'UI Design', 'Backend', 'WIP']"
+                />
+                <ProjectCard
+                    title="Website und Branding für den Braunschweiger Großhandel FDBS"
+                    client="FDBS"
+                    color="#d80044"
+                    href="/projects/fdbs"
+                    thumbnail="/images/fdbs_thumbnail.webp"
+                    :tags="['Development', 'Webdesign', 'Branding']"
+                />
+                <ProjectCard
+                    title="Website für den Braunschweiger Musikverein KinderKlassik"
+                    client="KinderKlassik.com"
+                    color="#126871"
+                    href="/projects/kinderklassik"
+                    thumbnail="/images/kinderklassik_thumbnail.webp"
+                    :tags="['Development', 'Webdesign']"
+                />
+                <ProjectCard
+                    title="Gencestor – eine Webanwendung zur Verwaltung von Ahnentafeln und Stammbäumen"
+                    client="DRV e.V."
+                    color="#254392"
+                    href="/projects/gencestor"
+                    thumbnail="/images/gencestor_thumbnail.webp"
+                    :tags="['Development', 'UI Design', 'Backend']"
+                />
             </div>
-        </div>
+        </HeLimiter>
     </Section>
 </template>
 
@@ -54,47 +85,16 @@
     const NuxtLink = defineNuxtLink({})
 
     useSeoMeta({
-        title: 'Web Developer & UI Designer',
-        description: 'Mit Leidenschaft und Liebe zum Detail entwickle ich Webseiten und Anwendungen, die begeistern. Mein Name ist Alyx Freuwört und ich bin ein Web Developer und UI Designer aus Braunschweig.',
+        title: 'Software Developer & UI Designer',
+        description: 'Mit Leidenschaft und Liebe zum Detail entwickle ich Anwendungen und Webseiten, die begeistern. Mein Name ist Alyx Freuwört und ich bin ein Software Developer und UI Designer aus Braunschweig.',
     })
-
-    const projects = ref([
-        {
-            title: 'Website und Branding für den Braunschweiger Großhandel FDBS',
-            client: 'FDBS',
-            color: '#d80044',
-            tags: ['Development', 'Webdesign', 'Branding'],
-            thumbnail: '/images/fdbs_thumbnail.webp',
-        },
-        {
-            title: 'Helium – eine Webanwendung zum Erstellen von Rechnungen und Angeboten',
-            client: 'Helium',
-            color: '#3737fa',
-            tags: ['Development', 'UI Design', 'Backend', 'WIP'],
-            thumbnail: '/images/helium_thumbnail.webp',
-        },
-        {
-            title: 'Website für den Braunschweiger Musikverein KinderKlassik',
-            client: 'KinderKlassik.com',
-            color: '#126871',
-            tags: ['Development', 'Webdesign'],
-            thumbnail: '/images/kinderklassik_thumbnail.webp',
-        },
-        {
-            title: 'Gencestor – eine Webanwendung zur Verwaltung von Ahnentafeln und Stammbäumen',
-            client: 'DRV e.V.',
-            color: '#254392',
-            tags: ['Development', 'UI Design', 'Backend'],
-            thumbnail: '/images/gencestor_thumbnail.webp',
-        },
-    ])
 </script>
 
 <style lang="sass" scoped>
     .super
         font-weight: 400
         color: var(--color-primary)
-        background: linear-gradient(90deg, var(--color-accent), #a55eea)
+        background: linear-gradient(90deg, var(--color-secondary), var(--color-tertiary))
         -webkit-background-clip: text
         -webkit-text-fill-color: transparent
 
@@ -127,9 +127,6 @@
         height: 100svh
         display: flex
         align-items: center
-
-        .grid-lines
-            mask-image: linear-gradient(to bottom, #00000000 0%, #000000 50%, #000000 calc(100% - 6rem), #00000000 100%)
 
         .hero-grid
             display: grid
@@ -178,7 +175,7 @@
             letter-spacing: 0
             font-weight: 500
             --local-font-size: 1rem
-            --local-color-background: linear-gradient(45deg, var(--color-accent), #a55eea) !important
+            --local-color-background: linear-gradient(45deg, var(--color-secondary), var(--color-tertiary)) !important
 
             &::before
                 content: ''
@@ -227,7 +224,7 @@
         .project-grid
             display: grid
             grid-template-columns: 1fr 1fr
-            grid-auto-rows: 4rem auto
+            grid-auto-rows: 6rem auto
             gap: 4rem
 
             .project-card

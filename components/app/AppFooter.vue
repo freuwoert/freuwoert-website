@@ -1,17 +1,11 @@
 <template>
     <footer>
-        <div class="limiter extra-padding">
-            <div class="button-wrapper">
-                <IodButton :is="NuxtLink" to="/" shape="pill" variant="text" size="small" aria-label="Zur Startseite">
-                    <BrandText color="currentColor"/>
-                </IodButton>
-            </div>
-            <Spacer />
-            <div class="button-wrapper">
-                <IodButton :is="NuxtLink" to="/impressum" label="Impressum" shape="pill" variant="text" size="small" />
-                <IodButton :is="NuxtLink" to="/datenschutz" label="Datenschutz" shape="pill" variant="text" size="small" />
-            </div>
-        </div>
+        <HeLimiter>
+            <span>© {{ new Date().getFullYear() }} Alyx Freuwört</span>
+            <HeSpacer />
+            <NuxtLink to="/impressum">Impressum</NuxtLink>
+            <NuxtLink to="/datenschutz">Datenschutz</NuxtLink>
+        </HeLimiter>
     </footer>
 </template>
 
@@ -24,43 +18,30 @@
         border-top: 1px solid var(--color-border)
         padding-block: 1rem
 
-    .limiter
-        display: flex
-        align-items: center
+    .he-limiter
+        display: flex !important
+        align-items: center !important
         flex-wrap: wrap
+        gap: 2rem
+        font-size: .875rem
 
-    .button-wrapper
-        display: flex
-        border-radius: 2.5rem
-        padding-block: .25rem
-        padding-inline: .25rem
-        gap: .25rem
-        transition: all 500ms
-        margin-inline: -1rem
-
-        &.group
-            padding-inline: .75rem
-        
-        .brand-item
-            height: .75rem
-
-        .iod-button
-            --local-color-background: var(--color-text-soft)
+        a
+            color: var(--color-text)
+            text-decoration: none
+            transition: all 200ms ease-in-out
 
             &:hover
-                --local-color-background: var(--color-primary) !important
+                color: var(--color-primary)
 
 
     
-    @media (max-width: 400px)
-        .limiter
+    @media (max-width: 470px)
+        .he-limiter
             flex-direction: column
             align-items: flex-start
             justify-content: center
+            gap: 1rem
 
-            .spacer
+            .he-spacer
                 display: none
-
-            .button-wrapper
-                margin-inline: 0rem
 </style>

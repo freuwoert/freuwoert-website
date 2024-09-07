@@ -34,7 +34,7 @@
 <style lang="sass" scoped>
     .iod-container.iod-alert
         color: var(--color-text)
-        border-radius: var(--radius-l)
+        border-radius: var(--radius-m)
         padding: 1rem
         display: flex
         flex-direction: column
@@ -58,7 +58,11 @@
 
         &.alert-type-placeholder
             user-select: none
+            padding-block: 0
             color: var(--color-text-disabled)
+
+            &::before
+                display: none
 
             .content
                 align-items: center
@@ -74,10 +78,8 @@
             z-index: 0
             pointer-events: none
             border-radius: inherit
-
-        &::before
             background: currentColor
-            mask: linear-gradient(to bottom right, #00000020, #00000010)
+            opacity: .07
 
         h3
             position: relative

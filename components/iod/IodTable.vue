@@ -2,55 +2,42 @@
     <div class="iod-container iod-table">
         <div class="table-fixture-wrapper">
             <div class="fixture-row">
+                <slot name="left"/>
+
+                <div class="p-1 flex items-center gap-1 bg-background-soft rounded-full" v-if="$slots['wrapped-left']">
+                    <slot name="wrapped-left"/>
+                </div>
 
                 <IodInput
-                    class="table-search-input"
+                    class="table-search-input !rounded-full"
                     placeholder="Suchen"
                     v-model="filter.search"
                 >
                     <template #right>
-                        <VDropdown placement="bottom" v-if="filterSettings && filterSettings.length">
-                            <IodIconButton type="button" variant="text" size="small" icon="filter_list" v-tooltip="'Filter'"/>
-                            <template #popper>
-                                <div class="flex vertical gap-1 padding-1">
-                                    <div class="flex gap-0-5 vertical" v-for="row in filterSettings">
-                                        <span>{{ row.label }}</span>
-                                        <template v-if="row.type == 'select'">
-                                            <!-- <IodSelect class="w-20" :label="row.label" :multiple="row.multiple" :options="row.values" v-model="filter[row.name]"/> -->
-                                            <select class="w-20 h-6" :multiple="row.multiple" v-model="filter[row.name]">
-                                                <option v-for="option in row.values" :value="option.value">{{ option.text }}</option>
-                                            </select>
-                                        </template>
-                                    </div>
-                                </div>
-                            </template>
-                        </VDropdown>
-                        <IodIconButton type="button" variant="text" size="small" icon="search" @click="$emit('request:refresh')" v-tooltip="'Suchen'"/>
+                        <IodTableFilters :filter="filter" :filterSettings="filterSettings" />
+                        <IodIconButton type="button" corner="pill" variant="text" size="s" icon="refresh" @click="$emit('request:refresh')" v-tooltip="'Aktualisieren'"/>
                     </template>
                 </IodInput>
-    
-                <template v-if="selection && selection.length">
-                    <div class="flex v-center padding-inline-1 background-soft radius-m" style="height: 2.5rem">
-                        <span>
-                            <b>{{ selection.length }} {{ selection.length === 1 ? 'Element' : 'Elemente' }}</b> ausgewählt
-                        </span>
-                    </div>
-                    <div class="flex v-center gap-0-5">
-                        <IodIconButton icon="deselect" style="--local-color-background: var(--color-text)" variant="contained" v-tooltip="'Alles abwählen'" @click="deselectAll()"/>
-                        <IodIconButton v-for="action in multipleActions" :icon="action.icon" :style="'--local-color-background: ' + action.color" variant="contained" v-tooltip="action.text" @click.stop="action.run(selection)"/>
-                    </div>
-                </template>
                 
                 <div class="spacer"></div>
-
-                <slot name="header"/>
+                
+                <div class="p-1 px-2 flex items-center gap-1 bg-background-soft rounded-full" v-if="$slots['wrapped-right'] || multipleActions.length">
+                    <IodIconButton size="s" corner="pill" variant="text" :icon="action.icon" v-tooltip="action.text" :background="action.color" v-for="action in multipleActions" @click.stop="action.run(selection)" :disabled="!selection.length"/>
+                    <slot name="wrapped-right"/>
+                </div>
+                
+                <slot name="right"/>
             </div>
 
             <div class="fixture-row">
-                <IodIcon icon="filter_list" style="color: var(--color-text-soft)" v-tooltip="'Aktive Filter'"/>
-                <IodButton class="filter-tag" size="small" shape="pill" variant="contained" :label='`Suche: "${filter.search}"`' v-show="filter.search" @click="filter.search = ''"/>
-                <IodButton class="filter-tag" size="small" shape="pill" variant="contained" :label="`${item.label}: ${item.value}`" @click="delete filter[item.key]" v-for="item in displayFilter"/>
-                <IodButton class="filter-tag" size="small" shape="pill" variant="contained" :label='`Seite: ${pagination.page}`' v-if="pagination" v-show="pagination.page > 1" @click="setPagination({ page: 0 })"/>
+                <div class="h-8 flex items-center gap-1 px-1 bg-background-soft rounded-full">
+                    <IodButton class="filter-tag" size="xs" corner="pill" variant="text" :label="`Filter`" icon-left="filter_alt" v-tooltip="'Filter/Auswahl löschen'" @click="setPagination({ page: 0 }); deselectAll(); filter = {}" />
+                    <IodButton class="filter-tag" size="xs" corner="pill" variant="text" :label='`Seite: ${pagination.page}`' v-if="pagination" v-show="pagination.page > 1" @click="setPagination({ page: 0 })"/>
+                    <IodButton class="filter-tag" size="xs" corner="pill" variant="text" :label='`Auswahl: ${selection.length}`' v-show="selection.length" @click="deselectAll()" v-tooltip="'Alles abwählen'"/>
+                    <IodButton class="filter-tag" size="xs" corner="pill" variant="text" :label='`Suche: "${filter.search}"`' v-show="filter.search" @click="filter.search = ''"/>
+                    <IodButton class="filter-tag" size="xs" corner="pill" variant="text" :label="`${item.label}: ${item.value}`" @click="delete filter[item.key]" v-for="item in displayFilter"/>
+                </div>
+                <div class="spacer"></div>
             </div>
 
             <IodLoader type="bar" v-show="loading" />
@@ -59,46 +46,67 @@
 
 
 
-        <div class="table-empty-wrapper" v-show="!items.length">
-            <div class="table-empty-text">Keine Einträge gefunden</div>
-        </div>
+        <IodAlert v-if="!items.length && !loading" class="h-72" as="placeholder">
+            <div class="flex item-center justify-center h-16 w-16">
+                <IodIcon icon="category" class="m-auto !text-5xl"/>
+            </div>
+            <span>Keine Einträge gefunden</span>
+        </IodAlert>
+        
+        <IodAlert v-if="!items.length && loading" class="h-72" as="placeholder">
+            <div class="flex item-center justify-center h-16 w-16">
+                <IodLoader class="m-auto"/>
+            </div>
+            <span>Lade Einträge</span>
+        </IodAlert>
 
         <div class="table-inner-wrapper" v-show="items.length">
             <div class="table-head">
                 <div class="table-row">
-                    <div class="table-column centered w-3">
+                    <div class="table-column centered w-12">
                         <IodToggle
                             :modelValue="items.length && items.every(item => selection.includes(item.id))"
                             @update:modelValue="$event ? selectAll() : deselectAll()"
                             v-tooltip="'Alle auswählen'"
-                            />
+                        />
                     </div>
-                    <div class="table-column" v-for="column in columns.filter(e => e.show)" :class="{
+
+                    <div class="table-column" v-for="column in columns" :class="{
                         'resizeable': column.resizeable,
-                        'resizing': column.resizing,
+                        'resizing': getColumnSettings(column).resizing,
                         'sortable': column.sortable,
                         'sorted-field': sort.field === column.name,
-                    }" :style="`width: ${column.width}px;`" @mousedown.exact="toggleSort(column.name)">
+                    }"
+                    :style="`width: ${getColumnSettings(column).width}px;`"
+                    @mousedown.exact="toggleSort(column.name)">
                         <div class="column-label" v-tooltip="column.label">{{ column.label }}</div>
                         <div class="column-sort-indicator">{{ sort.order === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</div>
-                        <div class="column-resize-handle" @mousedown.stop="startResize($event, column)"></div>
+                        <div class="column-resize-handle" @mousedown.stop="resize($event, column)"></div>
                     </div>
                 </div>
             </div>
 
             <div class="table-body">
                 <div class="table-row" v-for="item in items" @click="rowClick(item)">
-                    <div class="table-column centered w-3">
+                    <div class="table-column centered w-12">
                         <IodToggle :modelValue="getSelection.includes(item.id)" @click.stop @update:modelValue="setSelection(item, $event)"/>
                     </div>
 
-                    <div class="table-column" v-for="column in columns.filter(e => e.show)" :style="`width: ${column.width}px;`">
-                        <IodTableColumn :data="getData(item, column)"/>
+                    <div class="table-column" v-for="column in columns" :style="`width: ${getColumnSettings(column).width}px;`">
+                        <IodTableColumn :data="getData(item, column)" :monospace="column.monospace"/>
                     </div>
 
                     <div class="table-column actions">
                         <div class="button-container">
-                            <IodIconButton v-for="action in individualActions" :icon="action.icon" :style="'--local-color-background: '+action.color" v-tooltip="action.text" @click.stop="action.run([item.id])"/>
+                            <IodIconButton
+                                v-for="action in individualActions"
+                                size="s"
+                                variant="contained"
+                                :icon="action.icon"
+                                :background="action.color"
+                                v-tooltip="action.text"
+                                @click.stop="action.run([item.id])"
+                            />
                         </div>
                     </div>
                 </div>
@@ -107,7 +115,7 @@
 
 
 
-        <div class="table-pagination-wrapper" v-show="items.length">
+        <div class="table-pagination-wrapper">
             <IodPagination :modelValue="pagination" @update:modelValue="setPagination($event)"/>
             
             <div class="spacer"></div>
@@ -122,24 +130,40 @@
                     { value: 100000000, text: 'Alle' },
                 ]"/>
 
-                <VDropdown placement="top-end">
-                    <IodIconButton type="button" size="small" variant="text" icon="grid_view" v-tooltip="'Ansicht anpassen'"/>
-                    <template #popper>
-                        <div class="flex vertical padding-1">
-                            <IodToggle
-                                type="switch"
-                                v-for="column in columns.filter(e => e.hideable)"
-                                :label="column.label"
-                                v-model="column.show" />
-                        </div>
-                    </template>
-                </VDropdown>
+                <IodIconButton type="button" size="s" corner="pill" variant="text" icon="grid_view" v-tooltip="'Ansicht anpassen'" @click="columnPopup.open()"/>
             </div>
         </div>
+        
+
+
+        <IodPopup ref="columnPopup" title="Spalten anpassen" blur="0" backdrop-color="#00000020" max-width="400px" placement="right">
+            <div class="customization-wrapper">
+                <Container orientation="vertical" lock-axis="y" @drop="onDrop">
+                    <Draggable v-for="columnSetting in columnSettings" :key="columnSetting.name">
+                        <div class="customization-row" :class="{'shown': columnSetting.show}">
+                            <IodIcon icon="drag_handle" />
+                            <span class="label">{{ columnSetting.label }}</span>
+                            <IodIconButton
+                                type="button"
+                                size="s"
+                                variant="text"
+                                background="inherit"
+                                :icon="columnSetting.show ? 'visibility' : 'visibility_off'"
+                                v-tooltip="columnSetting.show ? 'Spalte ausblenden' : 'Spalten einblenden'"
+                                @click="columnSetting.show = !columnSetting.show"
+                            />
+                        </div>
+                    </Draggable>
+                </Container>
+            </div>
+        </IodPopup>
     </div>
 </template>
 
 <script lang="ts" setup>
+    // @ts-nocheck
+    import { Container, Draggable } from 'vue3-smooth-dnd'
+
     type Column = {
         name: string,
         label: string,
@@ -149,10 +173,18 @@
         sortable?: boolean,
         resizeable?: boolean,
         hideable?: boolean,
+        monospace?: boolean,
         default?: string | undefined,
-        // Private
+        
         show?: boolean,
         resizing?: boolean,
+    }
+
+    type ColumnSetting = {
+        name: string,
+        label?: string,
+        show?: boolean,
+        width?: number,
     }
 
     type Action = {
@@ -185,15 +217,17 @@
         order: 'asc' | 'desc',
     }
 
-    type FilterSetting = {
+    type FilterSettingValue = {
+        value: any,
+        text: string
+    }
+
+    export type FilterSetting = {
         name: string,
         label: string,
         type: 'select',
         multiple: boolean,
-        values: {
-            value: any,
-            text: string
-        }[],
+        values: FilterSettingValue[] | ComputedRef<FilterSettingValue[]>,
     }
 
 
@@ -201,6 +235,10 @@
     const props = defineProps({
         columns: {
             type: Array as PropType<Column[]>,
+            default: () => [],
+        },
+        columnSettings: {
+            type: Array as PropType<ColumnSetting[]>,
             default: () => [],
         },
         actions: {
@@ -240,14 +278,82 @@
 
     const emits = defineEmits([
         'update:selection',
-        'update:filter',
         'update:pagination',
         'update:sort',
+        'update:filter',
+        'update:filterSettings',
+        'update:columnSettings',
         'request:refresh',
     ])
 
 
 
+    // START: Columns
+    const columnPopup = ref()
+    const columnSettings = ref<ColumnSetting[]>([])
+
+    const shownColumns = computed<ColumnSetting[]>(() => {
+        return columnSettings.value
+        .filter(customisation => customisation.show)
+    })
+
+    const columns = computed<Column[]>(() => {
+        return props.columns
+        .filter(column => shownColumns.value.find(shownColumn => shownColumn.name === column.name))
+        .sort((a, b) => shownColumns.value.findIndex(shownColumn => shownColumn.name === a.name) - shownColumns.value.findIndex(shownColumn => shownColumn.name === b.name))
+    })
+
+    function loadColumnSettings() {
+        // Load customizations from saved settings
+        columnSettings.value = props.columnSettings.map(column => ({
+            name: column.name,
+            width: column.width ?? 200,
+            show: column.show ?? true,
+            resizing: false,
+        }))
+
+        for (const i of props.columns) {
+            const column = getColumnSettings(i.name)
+
+            // If the column was loaded, add the label
+            if (column) column.label = i.label
+
+            // Otherwise add it
+            else columnSettings.value.push({
+                name: i.name,
+                label: i.label,
+                width: i.width ?? 200,
+                show: i.show ?? true,
+                resizing: false,
+            })
+        }
+    }
+
+    function saveColumnSettings() {
+        emits('update:columnSettings', columnSettings.value.map(customisation => ({
+            name: customisation.name,
+            width: customisation.width,
+            show: customisation.show,
+        })))
+    }
+
+    function getColumnSettings(name: string|Column) {
+        name = typeof name === 'string' ? name : name.name
+
+        return columnSettings.value.find(customisation => customisation.name === name)
+    }
+
+    function onDrop(dropResult: any) {
+        columnSettings.value = applyDrag(columnSettings.value, dropResult)
+    }
+
+    watch(() => props.columns, loadColumnSettings, { immediate: true, deep: true })
+    watch(columnSettings, saveColumnSettings, { immediate: false, deep: true })
+    // END: Columns
+
+
+
+    // START: Actions
     const individualActions = computed<Action[]>(() => {
         return props.actions.filter((action: Action) => action.individual ?? false)
     })
@@ -256,12 +362,13 @@
         return props.actions.filter((action: Action) => action.multiple ?? false)
     })
 
-    const rowClick = (item: Item) => {
+    function rowClick(item: Item) {
         for (const action of individualActions.value.filter(action => action.triggerOnRowClick))
         {
             action.run([item.id])
         }
     }
+    // END: Actions
 
 
 
@@ -365,26 +472,27 @@
 
     // START: Sort
     const getSort = computed(() => {
-        return props.sort ?? { field: '', order: '' }
+        return {
+            field: props.sort?.field ?? '',
+            order: props.sort?.order ?? '',
+        }
     })
 
-    const setSort = (value: Sort) => {
-        value = {
-            ...getSort.value,
-            ...value,
-        }
+    function saveSort() {
+        emits('update:sort', getSort.value)
+    }
+
+    function setSort(value: Sort) {
+        value = { ...getSort.value, ...value }
 
         // Prevent non sortable columns from being sorted
-        if (!columns.value.find((column: Column) => column.name === value.field)?.sortable)
-        {
-            return
-        }
+        if (!columns.value.find((column: Column) => column.name === value.field)?.sortable) return
 
         // Emit the new sort
         emits('update:sort', value)
     }
 
-    const toggleSort = (field: string) => {
+    function toggleSort(field: string) {
         let value = (getSort.value.field === field) ? { order: getSort.value.order === 'asc' ? 'desc' : 'asc' } : { field, order: 'asc' }
         
         setSort(value as Sort)
@@ -402,57 +510,33 @@
 
 
 
-    const columns = ref<Column[]>([])
-
-    watch(() => props.columns, () => {
-        columns.value = props.columns.map(column => { return {
-            ...column,
-            resizing: false,
-            // show: LocalSetting.get(props.scope, 'show.'+column.name, true),
-            // width: LocalSetting.get(props.scope, 'width.'+column.name, column.width ?? 50),
-            show: true,
-            width: column.width ?? 50,
-        }})
-    },{
-        immediate: true,
-        deep: true,
-    })
-
-    watch(() => columns.value, () => {
-        for (const column of columns.value)
-        {
-            // LocalSetting.set(props.scope, 'show.'+column.name, column.show)
-            // LocalSetting.set(props.scope, 'width.'+column.name, column.width)
-        }
-    },{
-        deep: true,
-    })
-
-
-
-    const startResize = (event: MouseEvent, column: Column) => {
+    // START: Resizing
+    const resize = (event: MouseEvent, column: Column) => {
+        let columnSetting = getColumnSettings(column)
         let startX = event.clientX
-        let startWidth = column.width ?? 100
-        column.resizing = true
+        let startWidth = columnSetting.width
+
+        columnSetting.resizing = true
         
-        const mouseMove = (event: MouseEvent) => {
+        function mouseMove(event: MouseEvent) {
             let diff = event.clientX - startX
             let newWidth = startWidth + diff
             
             // Limit the width to 80px - 2000px
-            column.width = Math.min(Math.max(newWidth, 80), 2000)
+            columnSetting.width = Math.min(Math.max(newWidth, 80), 2000)
         }
 
-        const mouseUp = () => {
+        function mouseUp() {
             document.removeEventListener('mousemove', mouseMove)
             document.removeEventListener('mouseup', mouseUp)
 
-            column.resizing = false
+            columnSetting.resizing = false
         }
 
         document.addEventListener('mousemove', mouseMove)
         document.addEventListener('mouseup', mouseUp)
     }
+    // END: Resizing
 
 
 
@@ -505,12 +589,50 @@
 </script>
 
 <style lang="sass" scoped>
+    .customization-wrapper
+        .customization-row
+            display: flex
+            align-items: center
+            height: 3rem
+            padding-inline: .5rem
+            padding-block: .25rem
+            gap: .5rem
+            user-select: none
+            color: var(--color-text-soft-disabled)
+
+            &.shown
+                color: var(--color-text-soft)
+
+            .iod-icon
+                height: 2rem
+                width: 2rem
+                color: var(--color-text-soft-disabled)
+                font-size: 1.25rem
+
+            .label
+                flex: 1
+                color: inherit
+                font-weight: 600
+
+        .smooth-dnd-ghost
+            left: 0 !important
+            background: var(--color-background-soft)
+            border-radius: var(--radius-m)
+
     .iod-container.iod-table
         display: grid
         grid-template-rows: auto auto
+        border-radius: var(--radius-l)
 
         .table-fixture-wrapper
-            position: relative
+            position: sticky
+            z-index: 200
+            top: inherit
+            border-radius: inherit
+            border-bottom-right-radius: 0
+            border-bottom-left-radius: 0
+            background: var(--color-background)
+            z-index: 2
             padding-block: 1rem
             display: flex
             flex-direction: column
@@ -526,10 +648,9 @@
                 position: relative
 
                 .filter-tag
-                    height: 1.5rem !important
+                    padding-inline: .75rem !important
                     text-transform: unset !important
                     letter-spacing: unset !important
-                    --local-color-background: var(--color-text) !important
 
             .iod-loader
                 position: absolute !important
@@ -633,26 +754,11 @@
                         display: flex
                         align-items: center
                         padding: .25rem 1rem
-                        gap: 0
+                        gap: .25rem
                         background: var(--color-background-soft)
                         transform-origin: right
                         transform: translateX(1rem)
                         transition: all 100ms
-                        border-radius: var(--radius-m) 0 0 var(--radius-m)
-
-                        .iod-button
-                            border-radius: 0
-                            height: 2.25rem
-                            width: 2.25rem
-                            
-                            &:not(:last-child)
-                                border: none
-                                
-                            &:first-child
-                                border-radius: var(--radius-m) 0 0 var(--radius-m)
-
-                            &:last-child
-                                border-radius: 0 var(--radius-m) var(--radius-m) 0
 
                 &.sortable:hover
                     .column-sort-indicator
@@ -685,7 +791,7 @@
                     top: 3px
                     bottom: 3px
                     border-radius: 3px
-                    background: var(--color-primary)
+                    background: var(--color-text)
                     z-index: 10
                     display: none
                     opacity: 0
@@ -741,15 +847,15 @@
                 display: flex
                 align-items: center
                 gap: .25rem
-                padding: .25rem
+                padding: .25rem .5rem
                 height: 2.5rem
-                border-radius: var(--radius-m)
+                border-radius: 2.5rem
                 background: var(--color-background-soft)
 
                 .table-page-size-select
                     height: 2.5rem
                     width: 10rem
-                    border-radius: var(--radius-m)
+                    border-radius: 2.5rem
 
                 .iod-button
                     --local-color-background: var(--color-text) !important

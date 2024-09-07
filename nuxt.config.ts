@@ -4,6 +4,10 @@ export default defineNuxtConfig({
         '~/assets/css/app.sass'
     ],
 
+    modules: [
+        '@nuxtjs/tailwindcss',
+    ],
+
     devtools: {
         enabled: false
     },

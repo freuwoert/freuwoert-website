@@ -1,10 +1,10 @@
 <template>
     <div class="grid-lines">
-        <div class="limiter">
+        <HeLimiter>
             <div class="line left-line"></div>
             <div class="line center-line"></div>
             <div class="line right-line"></div>
-        </div>
+        </HeLimiter>
     </div>
 </template>
 
@@ -17,7 +17,16 @@
         left: 0
         pointer-events: none
 
-    .limiter
+        &.masked-start
+            mask-image: linear-gradient(to bottom, #00000000 0%, #000000 10rem, #000000 100%)
+
+        &.masked-end
+            mask-image: linear-gradient(to top, #000000 0%, #000000 calc(100% - 10rem), #00000000 100%)
+
+        &.masked
+            mask-image: linear-gradient(to bottom, #00000000 0%, #000000 10rem, #000000 calc(100% - 10rem), #00000000 100%)
+
+    .he-limiter
         position: relative
         height: 100%
 
@@ -40,10 +49,10 @@
 
 
     @media (max-width: 700px)
-        .limiter .line.center-line
+        .he-limiter .line.center-line
             display: none
 
     @media (max-width: 400px)
-        .limiter .line
+        .he-limiter .line
             display: none
 </style>
