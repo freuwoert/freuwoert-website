@@ -15,41 +15,32 @@
             </ul>
         </nav>
     
-        <IodIconButton class="he-mobile-menu-toggle" type="button" aria-label="Navigation öffnen" icon="menu" variant="text" @click="isOpen = true" />
+        <IodIconButton class="he-mobile-menu-toggle" type="button" aria-label="Navigation öffnen" icon="menu" variant="contained" corner="pill" @click="menuPopup.open()" />
     
-        <Teleport to="body">
-            <div class="he-mobile-menu" :class="{'is-open': isOpen}">
-                <div class="menu-background" @click="isOpen = false"></div>
-                <nav class="menu-body">
-                    <div class="menu-header">
-                        <HeSpacer />
-                        <IodIconButton class="he-mobile-menu-toggle" type="button" aria-label="Navigation schließen" icon="close" variant="text" @click="isOpen = false" />
-                    </div>
-                    <div class="menu-main">
-                        <ul class="sub-menu is-open">
-                            <HeMenuItem
-                                v-for="item in menu"
-                                :key="item.id"
-                                :href="item.href"
-                                :label="item.label"
-                                :notification="item.notification"
-                                :children="item.children || []"
-                                :initial-open="mobileSubmenuInitialOpen"
-                                :show-toggle="mobileSubmenuShowToggle"
-                                @navigate="isOpen = false"
-                            />
-                        </ul>
-                    </div>
-                </nav>
+        <IodPopup ref="menuPopup" placement="right" blur="none" should-close-on-backdrop-click>
+            <div class="he-mobile-menu menu-main">
+                <ul class="sub-menu is-open">
+                    <HeMenuItem
+                        v-for="item in menu"
+                        :key="item.id"
+                        :href="item.href"
+                        :label="item.label"
+                        :notification="item.notification"
+                        :children="item.children || []"
+                        :initial-open="mobileSubmenuInitialOpen"
+                        :show-toggle="mobileSubmenuShowToggle"
+                        @navigate="menuPopup.close()"
+                    />
+                </ul>
             </div>
-        </Teleport>
+        </IodPopup>
     </div>
 </template>
 
 <script lang="ts" setup>
     import HeMenuItem from './HeMenuItem.vue'
 
-    type MenuItem = {
+    export type MenuItem = {
         id: string
         href: string
         label: string
@@ -76,11 +67,13 @@
         },
     })
 
-    const isOpen = ref(false)
+    const menuPopup = ref()
 </script>
 
 <style lang="sass">
     .he-container.he-menu
+        display: flex
+        
         a
             text-decoration: none
 
@@ -89,144 +82,93 @@
         --local-font: var(--font-brand)
         --local-color-background: var(--color-text-soft) !important
 
-    .he-mobile-menu
-        position: fixed
-        top: 0
-        left: 0
-        width: 100%
-        height: 100%
-        z-index: 10000
-        pointer-events: none
-        display: none
+    .he-mobile-menu.menu-main
+        overflow-y: auto
+        overflow-x: hidden
+        flex: 1
+        padding-block: 1rem
 
-        &.is-open
-            pointer-events: all
-
-            .menu-background
-                opacity: 1
-
-            .menu-body
-                transform: translateX(0)
-
-        .menu-background
-            position: absolute
-            top: 0
-            left: 0
-            width: 100%
-            height: 100%
-            background-color: rgba(30, 30, 30, .8)
-            opacity: 0
-            backdrop-filter: blur(10px)
-            transition: opacity 300ms ease-in-out
-
-        .menu-body
-            position: absolute
-            top: 0
-            right: 0
-            height: 100%
-            width: calc(100% - 3rem)
-            max-width: 400px
-            display: flex
+        .sub-menu
+            display: none
             flex-direction: column
-            background: var(--color-background)
-            transform: translateX(100%)
-            transition: transform 300ms ease-in-out
-            box-shadow: var(--shadow-m)
+            list-style: none
+            padding: 0
+            margin: 0
+            gap: .25rem
 
-            .menu-header
+            &.is-open
                 display: flex
-                align-items: center
-                height: var(--spacing-xxxl)
-                padding-inline: 1.5rem
-                border-bottom: 1px solid var(--color-background-soft)
 
-            .menu-main
-                overflow-y: auto
-                overflow-x: hidden
-                flex: 1
-                padding-block: 1rem
+            .he-menu-item
+                display: contents
 
-                .sub-menu
-                    display: none
-                    flex-direction: column
-                    list-style: none
-                    padding: 0
-                    margin: 0
-                    gap: .25rem
+                .menu-item-row
+                    display: flex
+                    align-items: center
+                    gap: .5rem
+                    padding-inline: .5rem
 
-                    &.is-open
+                    > .menu-item-link
+                        flex: 1
                         display: flex
+                        align-items: center
+                        min-height: 2.5rem
+                        padding: .25rem 1rem
+                        gap: .5rem
+                        color: var(--color-text-soft)
+                        border-radius: var(--radius-m)
+                        text-decoration: none
 
-                    .he-menu-item
-                        display: contents
+                        &:hover,
+                        &:focus
+                            background: var(--color-background-soft)
+                            color: var(--color-text)
+                            outline: none
 
-                        .menu-item-row
+                        &.router-link-active
+                            color: var(--color-text)
+
+                        > .notification
                             display: flex
                             align-items: center
-                            gap: .5rem
-                            padding-inline: .5rem
+                            justify-content: center
+                            border-radius: 30rem
+                            height: 1.35rem
+                            font-size: .8rem
+                            background-color: var(--bg-rose-500)
+                            color: white
+                            line-height: 1.35rem
+                            padding-inline: .6rem
+                            pointer-events: none
+                            user-select: none
 
-                            > .menu-item-link
-                                flex: 1
-                                display: flex
-                                align-items: center
-                                min-height: 2.5rem
-                                padding: .25rem 1rem
-                                gap: .5rem
-                                color: var(--color-text-soft)
-                                border-radius: var(--radius-m)
-                                text-decoration: none
+                    > .toggle-button
+                        position: relative
+                        display: flex
+                        align-items: center
+                        justify-content: center
+                        height: 2.5rem
+                        width: 2.5rem
+                        border-radius: var(--radius-m)
+                        color: var(--color-text-soft)
+                        font-family: var(--font-icon)
+                        font-size: 1.75rem
+                        margin-right: 1rem
+                        user-select: none
+                        cursor: pointer
+                        transition: transform 100ms ease-out
 
-                                &:hover,
-                                &:focus
-                                    background: var(--color-background-soft)
-                                    color: var(--color-text)
-                                    outline: none
+                        &:hover,
+                        &:focus
+                            background: var(--color-background-soft)
+                            color: var(--color-text)
+                            outline: none
 
-                                &.router-link-active
-                                    color: var(--color-text)
+                        &.is-open
+                            transform: rotate(180deg)
 
-                                > .notification
-                                    display: flex
-                                    align-items: center
-                                    justify-content: center
-                                    border-radius: 30rem
-                                    height: 1.35rem
-                                    font-size: .8rem
-                                    background-color: var(--bg-rose-500)
-                                    color: white
-                                    line-height: 1.35rem
-                                    padding-inline: .6rem
-                                    pointer-events: none
-                                    user-select: none
-
-                            > .toggle-button
-                                position: relative
-                                display: flex
-                                align-items: center
-                                justify-content: center
-                                height: 2.5rem
-                                width: 2.5rem
-                                border-radius: var(--radius-m)
-                                color: var(--color-text-soft)
-                                font-family: var(--font-icon)
-                                font-size: 1.75rem
-                                margin-right: 1rem
-                                user-select: none
-                                cursor: pointer
-                                transition: transform 100ms ease-out
-
-                                &:hover,
-                                &:focus
-                                    background: var(--color-background-soft)
-                                    color: var(--color-text)
-                                    outline: none
-
-                                &.is-open
-                                    transform: rotate(180deg)
-
-                    li > ul
-                        padding-left: 1rem
+            li > ul
+                padding-left: 1rem
 
 
         
@@ -318,11 +260,12 @@
                     left: 50%
                     z-index: 1
                     min-width: 220px
+                    white-space: nowrap
                     display: flex
                     flex-direction: column
                     padding: 1rem 0
                     border-radius: var(--radius-m)
-                    border: 1px solid var(--color-border)
+                    border: 1px solid var(--color-background-soft)
                     background: var(--color-background)
                     opacity: 0
                     pointer-events: none
@@ -337,7 +280,7 @@
                         > .menu-item-row > .menu-item-link
                             display: flex
                             align-items: center
-                            padding: 0 1rem
+                            padding: 0 2rem 0 1rem
                             height: 3rem
                             color: inherit
 
@@ -374,12 +317,9 @@
 
 
 
-    @media only screen and (max-width: 1000px)
+    @media (max-width: 768px)
         .he-mobile-menu-toggle
             display: flex !important
-
-        .he-mobile-menu
-            display: block
 
         .he-desktop-menu
             display: none

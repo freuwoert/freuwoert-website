@@ -26,6 +26,14 @@
         position: relative
         font-size: var(--size-text)
 
+        &.elevated-m
+            background: var(--color-background)
+            box-shadow: 0 1rem 2rem #650db420
+            
+        &.elevated-l
+            background: var(--color-background)
+            box-shadow: 0 1rem 4rem #650db430
+
         .effects
             position: absolute
             top: 0

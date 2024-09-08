@@ -23,6 +23,11 @@
         display: block
         margin-inline: auto
         padding-inline: 1.5rem
+        position: relative
+        z-index: 1
+
+        &.extra-padding
+            padding-inline: 3rem
 
         &.size-full
             max-width: unset
@@ -39,7 +44,21 @@
         &.size-form
             max-width: 550px
 
-    @media only screen and (max-width: 768px)
+
+
+    @media (max-width: 768px)
         .he-container.he-limiter
             padding-inline: 1rem
+
+            &.extra-padding
+                padding-inline: 2rem
+
+
+    
+    @media (max-width: 480px)
+        .he-container.he-limiter
+            padding-inline: 1rem
+
+            &.extra-padding
+                padding-inline: 1rem
 </style>

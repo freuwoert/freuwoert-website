@@ -56,29 +56,35 @@
             box-shadow: 0 1rem 4rem var(--local-color-medium)
             background-color: var(--color-background)
 
-            .image-wrapper img
-                scale: 1.05
+            .image-wrapper
+                width: calc(100% - 1rem)
+                height: 19rem
+                margin: .5rem
+                border-radius: 1rem
+
+                img
+                    scale: 1.05
 
         .image-wrapper
             display: flex
             align-items: center
             justify-content: center
-            border-radius: 1rem
-            width: calc(100% - 1rem)
-            margin: .5rem
+            border-radius: inherit
+            width: 100%
+            height: 20rem
             margin-bottom: 0
             overflow: hidden
-            border: 2px solid var(--local-color-soft)
+            transition: all 200ms ease-in-out
 
             img
                 width: 100%
-                aspect-ratio: 16/9
+                height: 100%
                 object-fit: cover
                 object-position: center
                 transition: all 200ms ease-in-out
 
         .text-group
-            padding: 1.5rem
+            padding: 1.5rem 1rem
             display: flex
             flex-direction: column
 
@@ -109,8 +115,15 @@
 
 
 
-    @media (max-width: 400px)
+    @media (max-width: 480px)
         .project-card
+            &:hover
+                .image-wrapper
+                    height: 15rem
+
+            .image-wrapper
+                height: 13rem
+
             .text-group
                 padding: 1rem
 

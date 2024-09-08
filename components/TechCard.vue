@@ -33,6 +33,8 @@
         magento:    {fontFamily: 'var(--font-brand)', color: '#f46f25', icon: '', label: 'Magento'},
         drupal:     {fontFamily: 'var(--font-brand)', color: '#0077C0', icon: '', label: 'Drupal'},
         typo3:      {fontFamily: 'var(--font-brand)', color: '#f49700', icon: '', label: 'TYPO3'},
+
+        figma:      {fontFamily: 'var(--font-brand)', color: '#0ACF83', icon: '', label: 'Figma'},
     }
 
     const icon = computed(() => iconDict[props.type as keyof typeof iconDict] || null)

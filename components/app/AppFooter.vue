@@ -3,8 +3,7 @@
         <HeLimiter>
             <span>© {{ new Date().getFullYear() }} Alyx Freuwört</span>
             <HeSpacer />
-            <NuxtLink to="/impressum">Impressum</NuxtLink>
-            <NuxtLink to="/datenschutz">Datenschutz</NuxtLink>
+            <NuxtLink v-for="link in useMenu('legal')" :key="link.id" :to="link.href">{{ link.label }}</NuxtLink>
         </HeLimiter>
     </footer>
 </template>
@@ -20,22 +19,23 @@
 
     .he-limiter
         display: flex !important
-        align-items: center !important
+        align-items: center
         flex-wrap: wrap
         gap: 2rem
         font-size: .875rem
 
         a
-            color: var(--color-text)
+            color: var(--color-text-soft)
             text-decoration: none
             transition: all 200ms ease-in-out
+            font-weight: 500
 
             &:hover
-                color: var(--color-primary)
+                color: var(--color-text)
 
 
     
-    @media (max-width: 470px)
+    @media (max-width: 480px)
         .he-limiter
             flex-direction: column
             align-items: flex-start

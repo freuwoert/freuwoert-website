@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     ],
 
     modules: [
+        'floating-vue/nuxt',
         '@nuxtjs/tailwindcss',
     ],
 

@@ -38,21 +38,28 @@
             border-left: 1px solid var(--color-border)
 
             &.left-line
-                left: 1rem
+                left: 1.5rem
 
             &.center-line
                 left: 50%
 
             &.right-line
+                right: 1.5rem
+
+
+
+    @media (max-width: 768px)
+        .he-limiter .line
+            &.left-line
+                left: 1rem
+
+            &.center-line
+                display: none
+
+            &.right-line
                 right: 1rem
 
-
-
-    @media (max-width: 700px)
-        .he-limiter .line.center-line
-            display: none
-
-    @media (max-width: 400px)
+    @media (max-width: 480px)
         .he-limiter .line
             display: none
 </style>

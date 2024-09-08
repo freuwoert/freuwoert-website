@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@types/three": "^0.161.2",
+    "floating-vue": "^5.2.2",
+    "focus-trap-vue": "^4.0.3",
     "nuxt": "^3.10.1",
     "sass": "^1.70.0",
     "three": "^0.161.0",
