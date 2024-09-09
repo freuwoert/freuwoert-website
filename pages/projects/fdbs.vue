@@ -10,7 +10,7 @@
             <EffectGridLines />
         </template>
 
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-16 lg:gap-24 py-24 lg:py-40">
                 <div class="feature-content-block">
                     <h1 class="super">Projekt FDBS</h1>
@@ -30,7 +30,7 @@
 
 
     <Section id="tech" class="elevated-m">
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-8 lg:gap-12 py-12 lg:py-24">
                 <div class="flex flex-col">
                     <h2 class="super m-0 mr-auto">Technologien</h2>
@@ -56,7 +56,7 @@
             <EffectGridLines />
         </template>
 
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-16 lg:gap-24 py-24 lg:py-40">
                 <div class="flex flex-col">
                     <h2 class="super m-0 mr-auto">Einblicke</h2>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="end">
                         <StaggeredText class="mt-0" is="h3" stagger forward :delay="0" text="Neue Farben, neues Logo, neuer Slogan"/>
-                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="Um die modernen Werte des FDBS wiederzuspiegeln, wurde ein neues Logo, ein neuer Slogan und eine neue Farbpalette entwickelt. Das vorige Rot würde knalliger und der Name wurde gekürzt."/>
+                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="Um die modernen Werte des FDBS widerzuspiegeln, wurden ein neues Logo, ein neuer Slogan und eine neue Farbpalette entwickelt. Das vorige Rot würde knalliger und der Name wurde gekürzt."/>
                     </div>
                 </div>
 
@@ -89,7 +89,7 @@
                     </div>
                     <div class="end">
                         <StaggeredText class="mt-0" is="h3" stagger forward :delay="0" text="Das Kundenportal und Intranet"/>
-                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="Für die Kunden und Mitarbeiter wurde ein Portal entwickelt, das es ermöglicht, Dokumente, die über 10.000 Produktspezifikationen und Informationen zu teilen. Hierbei wurden die alten Joomla Seiten für die Hausmessen, die Hauptseite und das Intranet zu einem Custom-Made System zusammengeführt."/>
+                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="Für die Kunden und Mitarbeiter wurde ein Portal entwickelt, das es ermöglicht, Dokumente, die über 10.000 Produktspezifikationen und Informationen zu teilen. Hierbei wurden die alten Joomla-Seiten für die Hausmessen, die Hauptseite und das Intranet zu einem Custom Made System zusammengeführt."/>
                     </div>
                 </div>
             </div>

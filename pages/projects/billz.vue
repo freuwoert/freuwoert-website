@@ -10,11 +10,11 @@
             <EffectGridLines />
         </template>
 
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-16 lg:gap-24 py-24 lg:py-40">
                 <div class="feature-content-block">
                     <h1 class="super">Projekt Billz</h1>
-                    <StaggeredText class="title" is="h1" text="schnell und einfach Rechnungen erstellen" stagger forward :delay="0"/>
+                    <StaggeredText class="title" is="h1" text="Schnell und einfach Rechnungen erstellen" stagger forward :delay="0"/>
     
                     <div class="content flex flex-col gap-6">
                         <StaggeredText class="m-0" is="p" text="Ziel dieses Projektes — eine schnelle und einfache Möglichkeit, rechtlich konforme Rechnungen zu erstellen und diese als PDF an den Kunden senden zu können." stagger forward :delay="300"/>
@@ -30,7 +30,7 @@
 
 
     <Section id="tech" class="elevated-m">
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-8 lg:gap-12 py-12 lg:py-24">
                 <div class="flex flex-col">
                     <h2 class="super m-0 mr-auto">Technologien</h2>
@@ -56,7 +56,7 @@
             <EffectGridLines />
         </template>
 
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-16 lg:gap-24 py-24 lg:py-40">
                 <div class="flex flex-col">
                     <h2 class="super m-0 mr-auto">Einblicke</h2>

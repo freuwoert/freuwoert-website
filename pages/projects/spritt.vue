@@ -10,14 +10,14 @@
             <EffectGridLines />
         </template>
 
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-16 lg:gap-24 py-24 lg:py-40">
                 <div class="feature-content-block">
                     <h1 class="super">Projekt Spritt</h1>
-                    <StaggeredText class="title" is="h1" text="schlanker, mobiler Spritkostenrechner" stagger forward :delay="0"/>
+                    <StaggeredText class="title" is="h1" text="Schlanker, mobiler Spritkostenrechner" stagger forward :delay="0"/>
     
                     <div class="content flex flex-col gap-6">
-                        <StaggeredText class="m-0" is="p" text="Ziel dieses Projektes — eine handliche, schlanke und intuitive Mobile-Web-App welche das Errechnen der Spritkosten für den nächsten Urlaub erleichtert." stagger forward :delay="300"/>
+                        <StaggeredText class="m-0" is="p" text="Ziel dieses Projektes — eine handliche, schlanke und intuitive Mobile-Web-App, welche das Errechnen der Spritkosten für den nächsten Urlaub erleichtert." stagger forward :delay="300"/>
                         <div class="flex items-center gap-4">
                             <IodButton :is="NuxtLink" label="GitHub" icon-right="open_in_new" variant="contained" corner="pill" to="https://github.com/freuwoert/spritt" target="_blank"/>
                         </div>
@@ -30,7 +30,7 @@
 
 
     <Section id="tech" class="elevated-m">
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-8 lg:gap-12 py-12 lg:py-24">
                 <div class="flex flex-col">
                     <h2 class="super m-0 mr-auto">Technologien</h2>
@@ -54,7 +54,7 @@
             <EffectGridLines />
         </template>
 
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-16 lg:gap-24 py-24 lg:py-40">
                 <div class="flex flex-col">
                     <h2 class="super m-0 mr-auto">Einblicke</h2>
@@ -87,7 +87,7 @@
                     </div>
                     <div class="end">
                         <StaggeredText class="mt-0" is="h3" stagger forward :delay="0" text="Fahrten anlegen und Kosten berechnen"/>
-                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="Zuletzt können Fahrten angelegt bei denen jeweils das Auto, die Mitfahrer und die Strecke ausgewählt werden. Die App berechnet dann die Spritkosten pro Person."/>
+                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="Zuletzt können Fahrten erstellt werden, bei denen das Auto, die Mitfahrer und die Strecke ausgewählt werden. Die App berechnet anschließend die Spritkosten pro Person und Auto."/>
                     </div>
                 </div>
             </div>

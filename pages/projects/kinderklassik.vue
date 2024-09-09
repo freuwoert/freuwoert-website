@@ -10,7 +10,7 @@
             <EffectGridLines />
         </template>
 
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-16 lg:gap-24 py-24 lg:py-40">
                 <div class="feature-content-block">
                     <h1 class="super">Projekt KinderKlassik</h1>
@@ -30,7 +30,7 @@
 
 
     <Section id="tech" class="elevated-m">
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-8 lg:gap-12 py-12 lg:py-24">
                 <div class="flex flex-col">
                     <h2 class="super m-0 mr-auto">Technologien</h2>
@@ -54,7 +54,7 @@
             <EffectGridLines />
         </template>
 
-        <HeLimiter>
+        <HeLimiter class="extra-padding">
             <div class="flex flex-col gap-16 lg:gap-24 py-24 lg:py-40">
                 <div class="flex flex-col">
                     <h2 class="super m-0 mr-auto">Einblicke</h2>

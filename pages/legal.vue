@@ -8,7 +8,8 @@
             <div class="py-24 lg:py-40">
                 <h1>Impressum</h1>
                 <p>
-                    <b>Anbieterin: Alyx Freuwört</b>
+                    Anbieterin:<br>
+                    <b>Alyx Freuwört</b>
                 </p>
                 <p>
                     Hinter den Gärten 1<br>

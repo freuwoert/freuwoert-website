@@ -17,7 +17,7 @@
                     <StaggeredText class="title" is="h1" text="Intuitives cloud-based Content Management" stagger forward :delay="0"/>
     
                     <div class="content flex flex-col gap-6">
-                        <StaggeredText class="m-0" is="p" text="Ziel dieses Projektes — eine intuitive und modulares open-source Software, welche es Nutzern ermöglicht Medien, Events, digitale Formulare und Blog-Inhalte granuliert via Permission Management in der Cloud zu verwalten." stagger forward :delay="300"/>
+                        <StaggeredText class="m-0" is="p" text="Ziel dieses Projektes — eine intuitive und modulare Open-Source Software, welche es Nutzern ermöglicht, Medien, Events, digitale Formulare und Blog-Inhalte granuliert via Permission Management in der Cloud zu verwalten." stagger forward :delay="300"/>
                         <div class="flex items-center gap-4">
                             <IodButton :is="NuxtLink" label="GitHub" icon-right="open_in_new" variant="contained" corner="pill" to="https://github.com/freuwort/helium-backend" target="_blank"/>
                         </div>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="end">
                         <StaggeredText class="mt-0" is="h3" stagger forward :delay="0" text="Nutzer anlegen und verwalten"/>
-                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="Nutzer können sich selber oder via Admin-Unterstützung in das Benutzer-System eintragen. Einmal eingetragen können Administratoren diverse Einstellungen vornehmen, um Berechtigungen zuzuweisen, Daten zu ändern, oder Benachrichtigungen zu senden."/>
+                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="Nutzer können sich selber oder via Admin-Unterstützung in das Benutzer-System eintragen. Einmal eingetragen können Administratoren diverse Einstellungen vornehmen, um Berechtigungen zuzuweisen, Daten zu ändern oder Benachrichtigungen zu senden."/>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@
                     </div>
                     <div class="end">
                         <StaggeredText class="mt-0" is="h3" stagger forward :delay="0" text="Berechtigungen anpassen"/>
-                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="In Berechtigungsgruppen (Rollen) können Administratoren granuliert Zugriff auf die Funktionen von Helium vergeben und diese Nutzern zuweisen."/>
+                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="In Berechtigungsgruppen (Rollen) können Administratoren granuliert Zugriff auf die Funktionen von Helium vergeben und Nutzern zuweisen."/>
                     </div>
                 </div>
 
@@ -90,7 +90,7 @@
                     </div>
                     <div class="end">
                         <StaggeredText class="mt-0" is="h3" stagger forward :delay="0" text="Medien hochladen"/>
-                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="Nutzer mit der benötigten Berechtigung können eigenständig Medien wie Videodateien, Audiodateien, Bilder und PDFs hochladen und diese wiederum anderen Nutzern oder Rollen freigeben. Im Hintergrund erstellt das System via Queue Vorschaubilder. Alle Medien werden zugunsten der Performance in der Datenbank gecached."/>
+                        <StaggeredText class="m-0" is="p" stagger forward :delay="200" text="Nutzer mit der benötigten Berechtigung können eigenständig Medien wie Videodateien, Audiodateien, Bilder und PDFs hochladen und diese wiederum anderen Nutzern oder Rollen freigeben. Im Hintergrund erstellt das System via Queue Vorschaubilder. Alle Medien werden zugunsten der Performance in der Datenbank gecacht."/>
                     </div>
                 </div>
 

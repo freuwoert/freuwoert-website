@@ -19,13 +19,13 @@
             <EffectGridLines class="masked"/>
         </template>
         
-        <HeLimiter>
+        <HeLimiter  class="extra-padding">
             <div class="flex flex-col gap-8 lg:gap-12 py-24 lg:py-40">
                 <div class="feature-content-block">
                     <h2 class="super">Über mich</h2>
                     <StaggeredText class="title" is="h2" text="Aus Leidenschaft und Liebe zur Entwicklung" stagger forward :delay="300"/>
                     <div class="content flex flex-col gap-6">
-                        <StaggeredText class="m-0" is="p" text="Ich bin Alyx Freuwört — Software Developer und UI Designer aus Braunschweig. Seit 2017 entwickle und gestalte ich mit Technologien wie Laravel, SQL, Vue, TypeScript und Sass full stack Applikationen und Software-Benutzeroberflächen." stagger forward :delay="300"/>
+                        <StaggeredText class="m-0" is="p" text="Ich bin Alyx Freuwört — Software Developer und UI Designer aus Braunschweig. Seit 2017 entwickle und gestalte ich mit Technologien wie Laravel, SQL, Vue, TypeScript und Sass full-stack Applikationen und Software-Benutzeroberflächen." stagger forward :delay="300"/>
                         <div class="flex items-center gap-4">
                             <IodButton :is="NuxtLink" label="GitHub" icon-right="open_in_new" variant="contained" corner="pill" to="https://github.com/freuwoert" target="_blank"/>
                         </div>
@@ -53,7 +53,7 @@
 
                 <div class="mansory-grid-block">
                     <ProjectCard
-                        title="Helium – Intuitives cloud based Content Management"
+                        title="Helium – Intuitives cloud-based Content Management"
                         client="Helium"
                         color="#3737fa"
                         href="/projects/helium"
@@ -69,7 +69,7 @@
                         :tags="['Development', 'Webdesign', 'Branding']"
                     />
                     <ProjectCard
-                        title="Billz – schnell und einfach Rechnungen erstellen"
+                        title="Billz – Schnell und einfach Rechnungen erstellen"
                         client="Billz"
                         color="#191919"
                         href="/projects/billz"
@@ -85,7 +85,7 @@
                         :tags="['Development', 'Webdesign']"
                     />
                     <ProjectCard
-                        title="Spritt – schlanker, mobiler Spritkostenrechner"
+                        title="Spritt – Schlanker, mobiler Spritkostenrechner"
                         client="Spritt"
                         color="#16a085"
                         href="/projects/spritt"
