@@ -6,14 +6,14 @@ export default defineNuxtPlugin(nuxtApp => {
 
     const posthogClient = posthog.init(runtimeConfig.public.posthogPublicKey, {
         api_host: runtimeConfig.public.posthogHost,
-        person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+        person_profiles: 'identified_only',
         capture_pageview: false,
-        loaded: (posthog) => {
+        persistence: 'memory',
+        loaded(posthog) {
             if (import.meta.env.MODE === 'development') posthog.debug()
         },
     })
 
-    // Make sure that pageviews are captured with each route change
     const router = useRouter()
 
     router.afterEach((to) => {
